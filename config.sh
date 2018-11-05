@@ -7,4 +7,5 @@ link_map=(
 
 __install__() {
     vim '+PlugInstall' '+qa'
+    ln -s $HOME/.vim $HOME/.config/nvim
 }
