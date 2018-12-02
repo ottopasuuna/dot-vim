@@ -95,19 +95,11 @@ call plug#begin()
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'flazz/vim-colorschemes'
-" Plug '4Evergreen4/vim-hardy', {'for': 'arduino'}
-" Plug 'Arduino-syntax-file', {'for': 'arduino'}
-" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/fzf', {'dir': '~/.fzf'}
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/vim-github-dashboard', {'on': ['GHDashboard', 'GHActivity']}
-" Plug 'Shougo/unite.vim'
-" Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
-" Plug 'scrooloose/syntastic'
-Plug 'xolox/vim-misc' | Plug 'xolox/vim-easytags'
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'Valloric/ListToggle'
-Plug 'jaxbot/github-Issues.vim', {'on': ['Gissues', 'Giadd']}
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 " Plug 'tpope/vim-vinegar'
 Plug 'benekastah/neomake',
@@ -126,21 +118,18 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'mhinz/vim-signify'
 Plug 'bling/vim-bufferline'
-Plug 'vimwiki/vimwiki'
 Plug 'godlygeek/tabular'
-" Plug 'tbabej/taskwiki'
-Plug 'blindFS/vim-taskwarrior'
 Plug 'powerman/vim-plugin-AnsiEsc'
 if !has('nvim')
    Plug 'Shougo/neocomplete.vim'
 else
-   Plug 'Shougo/deoplete.nvim'
+   Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
    Plug 'zchee/deoplete-clang'
    Plug 'zchee/deoplete-jedi', {'for': 'python'}
    Plug 'davidhalter/jedi', {'for': 'python'}
    let g:deoplete#enable_at_startup = 1
-   let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-   let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
+   " let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+   " let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
 endif
 
 call plug#end()
@@ -265,6 +254,9 @@ let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#max_list = 25
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
+" set gutentags cache directory
+let g:gutentags_cache_dir = '~/.gutentags'
+
 "}}}
 
 " =========== Keyboard mappings ============ {{{
@@ -370,9 +362,6 @@ let g:better_whitespace_filetypes_blacklist=['txt']
 "Search for visually selected text
 vnoremap // y/<C-R>"<CR>
 
-"Java print hotkey
-inoremap <C-p> System.out.println(
-
 "append a period to the end of a line.
 :nnoremap <leader>. A.<esc>0
 "Capitalize current word in insert mode.
@@ -389,6 +378,10 @@ iabbrev tehn then
 iabbrev incldue include
 iabbrev enld endl
 iabbrev teh the
+
+" Wrap text
+vnoremap Q gq
+nnoremap Q gqap
 
 "}}}
 

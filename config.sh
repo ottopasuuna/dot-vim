@@ -6,6 +6,6 @@ link_map=(
 )
 
 __install__() {
-    vim '+PlugInstall' '+qa'
+    nvim '+PlugInstall' '+qa' && pip3 install neovim || vim '+PlugInstall' '+qa'
     ln -s $HOME/.vim $HOME/.config/nvim
 }
