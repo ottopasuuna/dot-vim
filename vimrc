@@ -83,6 +83,8 @@ let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
 
 " let g:python3_host_prog = '/home/carl/miniconda3/envs/neovim3/bin/python'
 
+set nofixendofline
+
 "}}}
 
 " =========== Plugin settings ============== {{{
@@ -113,15 +115,22 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tomtom/tcomment_vim'
-Plug 'mattn/emmet-vim'
-Plug 'blindFS/vim-taskwarrior'
+" Plug 'mattn/emmet-vim'
+" Plug 'blindFS/vim-taskwarrior'
 Plug 'vimwiki/vimwiki/'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'mhinz/vim-signify'
 Plug 'bling/vim-bufferline'
 Plug 'godlygeek/tabular'
+Plug 'lambdalisue/vim-unified-diff'
+Plug 'christoomey/vim-conflicted'
+Plug 'yegappan/greplace'
+Plug 'Yggdroot/indentLine'
 Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'chrisbra/vim-diff-enhanced'
+Plug 'kassio/neoterm'
+Plug 'vim-ctrlspace/vim-ctrlspace'
 if !has('nvim')
    Plug 'Shougo/neocomplete.vim'
 else
@@ -132,6 +141,9 @@ else
    let g:deoplete#enable_at_startup = 1
    let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
    let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
+   let g:jedi#auto_initialization=1
+   let g:jedi#auto_vim_configuration=1
+   let g:jedi#popup_on_dot=1
 endif
 
 call plug#end()
@@ -239,7 +251,7 @@ let g:neomake_c_gcc_maker = {
    \}
 
 let g:neomake_c_enabled_makers = ['gcc']
-let g:neomake_python_enabled_makers = ['python', 'flake8']
+let g:neomake_python_enabled_makers = ['python', 'pylint']
 
 let g:neomake_warning_sign = {
    \ 'text': '⚠',
