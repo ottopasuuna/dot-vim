@@ -82,6 +82,8 @@ let g:slime_target = "tmux"
 let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
 
 " let g:python3_host_prog = '/home/carl/miniconda3/envs/neovim3/bin/python'
+let g:python3_host_prog='/usr/bin/python3.4'
+let g:python_host_prog='/usr/bin/python2'
 
 set nofixendofline
 
@@ -327,7 +329,11 @@ nnoremap K ddkPJ
 nnoremap cp ct,
 
 "Bind for fzf
-nnoremap <C-p> :Files<CR>
+nnoremap <C-m> :Files<CR>
+nnoremap <C-p><C-p> :GFiles<CR>
+nnoremap <C-p><C-b> :Buffers<CR>
+nnoremap <C-p><C-t> :Tags<CR>
+nnoremap <C-p><C-r> :Rg
 
 "Move to begining and end of line
 nnoremap H ^
@@ -397,6 +403,13 @@ iabbrev teh the
 vnoremap Q gq
 nnoremap Q gqap
 
+nnoremap <leader>pb Oimport pdb; pdb.set_trace()<Esc>^
+
+let g:jedi#goto_command = "<leader>d"
+
+let g:CtrlSpaceDefaultMappingKey = "<C-space> "
+
+nnoremap <leader>pf Ofrom core.util.profile import profile<Cr>@profile('/tmp/')<Esc>hi
 "}}}
 
 " =============== Functions ================ {{{
