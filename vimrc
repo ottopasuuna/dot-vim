@@ -81,7 +81,7 @@ set foldmethod=marker
 let g:slime_target = "tmux"
 let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
 
-let g:python3_host_prog = '/home/carl/miniconda3/envs/neovim3/bin/python'
+" let g:python3_host_prog = '/home/carl/miniconda3/envs/neovim3/bin/python'
 
 "}}}
 
@@ -114,6 +114,8 @@ Plug 'tpope/vim-repeat'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tomtom/tcomment_vim'
 Plug 'mattn/emmet-vim'
+Plug 'blindFS/vim-taskwarrior'
+Plug 'vimwiki/vimwiki/'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'mhinz/vim-signify'
