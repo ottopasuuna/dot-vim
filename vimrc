@@ -327,7 +327,11 @@ nnoremap K ddkPJ
 nnoremap cp ct,
 
 "Bind for fzf
-nnoremap <C-p> :Files<CR>
+nnoremap <C-m> :Files<CR>
+nnoremap <C-p><C-p> :GFiles<CR>
+nnoremap <C-p><C-b> :Buffers<CR>
+nnoremap <C-p><C-t> :Tags<CR>
+nnoremap <C-p><C-r> :Rg
 
 "Move to begining and end of line
 nnoremap H ^
@@ -397,6 +401,9 @@ iabbrev teh the
 vnoremap Q gq
 nnoremap Q gqap
 
+let g:CtrlSpaceDefaultMappingKey = "<C-space> "
+
+let g:jedi#goto_command = "<leader>d"
 "}}}
 
 " =============== Functions ================ {{{
