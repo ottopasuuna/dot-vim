@@ -81,7 +81,7 @@ set foldmethod=marker
 let g:slime_target = "tmux"
 let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
 
-" let g:python3_host_prog = '/home/carl/miniconda3/envs/neovim3/bin/python'
+let g:python3_host_prog = '/home/carl/miniconda3/envs/neovim/bin/python'
 
 set nofixendofline
 
@@ -269,8 +269,11 @@ let g:neocomplete#max_list = 25
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " set gutentags cache directory
-let g:gutentags_cache_dir = '~/.gutentags'
+let g:gutentags_cache_dir = '~/.cache/gutentags'
 
+" Use markdown syntax for vimwiki
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
 "}}}
 
 " =========== Keyboard mappings ============ {{{
