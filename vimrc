@@ -191,6 +191,9 @@ colorscheme molokai
 " colorscheme badwolf
 highlight Normal ctermbg=None
 
+" Revert molokai change that makes matching parenthesis hard to read
+hi MatchParen      ctermfg=208  ctermbg=233 cterm=bold
+
 let g:tmuxline_preset = {
     \'a' : '#S',
     \'win' : ['#I #W'],
