@@ -363,6 +363,8 @@ let g:lt_quickfix_list_toggle_map = '<leader>p'
 
 "Git add and commit
 nnoremap <leader>gc :Git commit -a
+" Open git fugitive status in new tab
+nnoremap <leader>gs :tabe<CR>:Gstatus<CR>
 
 "Unite
 " nnoremap <C-p> :Unite file file_rec buffer<CR>
