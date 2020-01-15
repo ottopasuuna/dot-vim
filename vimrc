@@ -81,7 +81,9 @@ set foldmethod=marker
 let g:slime_target = "tmux"
 let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
 
+" Use python from a conda environment
 let g:python3_host_prog = '/home/carl/.local/share/miniconda3/envs/neovim/bin/python'
+let $PATH .= ':/home/carl/.local/share/miniconda3/envs/neovim/bin'
 
 set nofixendofline
 
