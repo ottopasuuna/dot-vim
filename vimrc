@@ -2,11 +2,78 @@
 "               Carl's .vimrc
 "===========================================
 
+" ========== Pluggins ========== {{{
+
+call plug#begin()
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'flazz/vim-colorschemes'
+Plug 'junegunn/fzf', {'dir': '~/.fzf'}
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/gv.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-peekaboo'
+" Plug 'rust-lang/rust.vim', {'for': 'rust'}
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'Valloric/ListToggle'
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+Plug 'tpope/vim-vinegar'
+Plug 'benekastah/neomake',
+Plug 'majutsushi/tagbar'
+Plug 'vim-scripts/TaskList.vim', {'on': 'TaskList'}
+Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
+" Plug 'edkolev/tmuxline.vim'
+Plug 'jpalardy/vim-slime'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-rsi'
+Plug 'tpope/vim-sensible'
+Plug 'jiangmiao/auto-pairs'
+Plug 'tomtom/tcomment_vim'
+" Plug 'mattn/emmet-vim'
+" Plug 'blindFS/vim-taskwarrior'
+Plug 'vimwiki/vimwiki/'
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'mhinz/vim-signify'
+Plug 'bling/vim-bufferline'
+Plug 'lambdalisue/vim-unified-diff'
+Plug 'christoomey/vim-conflicted'
+Plug 'yegappan/greplace'
+Plug 'Yggdroot/indentLine'
+Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'chrisbra/vim-diff-enhanced'
+Plug 'rhysd/git-messenger.vim'
+Plug 'janko/vim-test'
+Plug 'benmills/vimux'
+if !has('nvim')
+   Plug 'Shougo/neocomplete.vim'
+else
+   Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+   Plug 'zchee/deoplete-clang'
+   Plug 'zchee/deoplete-jedi', {'for': 'python'}
+   Plug 'davidhalter/jedi', {'for': 'python'}
+   let g:deoplete#enable_at_startup = 1
+   let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+   let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
+   let g:jedi#auto_initialization=1
+   let g:jedi#auto_vim_configuration=1
+   let g:jedi#popup_on_dot=1
+endif
+
+call plug#end()
+"}}}
+
 " ============ General settings ============= {{{
 
 "Disable vi support
 "Some features don't work otherwise
 set nocompatible
+
+" Source sensible.vim plugin so we can override settings
+runtime! plugin/sensible.vim
 
 "Enable hidden buffers
 set hidden
@@ -15,17 +82,11 @@ set hidden
 set noswapfile
 set nobackup
 
-set enc=utf8
-
 "Automatically load vimrc after saving
 autocmd! bufwritepost ~/.vimrc source %
 
 "Automatically run syntax checks on saving
 autocmd! BufWritePost * Neomake
-
-"allow plugins to read filetypes
-filetype plugin on
-" filetype off
 
 au FileType txt set tw=80 spell
 
@@ -59,15 +120,15 @@ set list lcs=tab:»·,eol:¬
 
 "Tab settings
 
-set autoindent
+" set autoindent
 set shiftwidth=4
-set tabstop=4
-set expandtab
-set softtabstop=4
+" set tabstop=4
+" set expandtab
+" set softtabstop=4
 
 "Highlight search items
 " set hlsearch
-set incsearch
+" set incsearch
 
 set completeopt-=preview
 
@@ -77,79 +138,25 @@ set completeopt-=preview
 " za   toggle fold
 set foldmethod=marker
 
-"slimv configuration
-let g:slime_target = "tmux"
-let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
 
 " Use python from a conda environment
-let g:python3_host_prog = '/home/carl/.local/share/miniconda3/envs/neovim/bin/python'
-let $PATH .= ':/home/carl/.local/share/miniconda3/envs/neovim/bin'
+let g:python3_host_prog = $HOME . '/.local/share/miniconda3/envs/neovim/bin/python'
+let $PATH .= ':' . $HOME . '/.local/share/miniconda3/envs/neovim/bin'
 
 set nofixendofline
 
+set cursorline
+
+" syntax on
+colorscheme molokai
+"colorscheme ottopasuuna
+highlight Normal ctermbg=None
+
+" Revert molokai change that makes matching parenthesis hard to read
+hi MatchParen      ctermfg=208  ctermbg=233 cterm=bold
 "}}}
 
 " =========== Plugin settings ============== {{{
-"
-
-"vim-plug initialization{{{
-
-
-call plug#begin()
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'flazz/vim-colorschemes'
-Plug 'junegunn/fzf', {'dir': '~/.fzf'}
-Plug 'junegunn/fzf.vim'
-Plug 'rust-lang/rust.vim', {'for': 'rust'}
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'Valloric/ListToggle'
-Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
-" Plug 'tpope/vim-vinegar'
-Plug 'benekastah/neomake',
-Plug 'majutsushi/tagbar'
-Plug 'vim-scripts/TaskList.vim', {'on': 'TaskList'}
-Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
-Plug 'edkolev/tmuxline.vim'
-Plug 'jpalardy/vim-slime'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-repeat'
-Plug 'jiangmiao/auto-pairs'
-Plug 'tomtom/tcomment_vim'
-" Plug 'mattn/emmet-vim'
-" Plug 'blindFS/vim-taskwarrior'
-Plug 'vimwiki/vimwiki/'
-Plug 'jeffkreeftmeijer/vim-numbertoggle'
-Plug 'ntpeters/vim-better-whitespace'
-Plug 'mhinz/vim-signify'
-Plug 'bling/vim-bufferline'
-Plug 'godlygeek/tabular'
-Plug 'lambdalisue/vim-unified-diff'
-Plug 'christoomey/vim-conflicted'
-Plug 'yegappan/greplace'
-Plug 'Yggdroot/indentLine'
-Plug 'powerman/vim-plugin-AnsiEsc'
-Plug 'chrisbra/vim-diff-enhanced'
-Plug 'kassio/neoterm'
-Plug 'vim-ctrlspace/vim-ctrlspace'
-if !has('nvim')
-   Plug 'Shougo/neocomplete.vim'
-else
-   Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
-   Plug 'zchee/deoplete-clang'
-   Plug 'zchee/deoplete-jedi', {'for': 'python'}
-   Plug 'davidhalter/jedi', {'for': 'python'}
-   let g:deoplete#enable_at_startup = 1
-   let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-   let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
-   let g:jedi#auto_initialization=1
-   let g:jedi#auto_vim_configuration=1
-   let g:jedi#popup_on_dot=1
-endif
-
-call plug#end()
-"}}}
 
 " turn on vim airline
 set laststatus=2
@@ -178,23 +185,6 @@ let g:airline_mode_map = {
 " Hide vim's default mode indicator
 set noshowmode
 
-"load github token for github plugins
-" source $HOME/.githubtoken.vim
-" let g:gissues_lazy_load = 1
-" let g:github_dashboard = {'username': 'ottopasuuna', 'password': g:github_access_token }
-
-"syntax highlighting (added here to allow for
-" plugin manager to install colorschemes)
-syntax on
-" colorscheme luna-term
-" colorscheme Tomorrow-Night-Eighties
-colorscheme molokai
-"colorscheme ottopasuuna
-" colorscheme badwolf
-highlight Normal ctermbg=None
-
-" Revert molokai change that makes matching parenthesis hard to read
-hi MatchParen      ctermfg=208  ctermbg=233 cterm=bold
 
 let g:tmuxline_preset = {
     \'a' : '#S',
@@ -203,30 +193,6 @@ let g:tmuxline_preset = {
     \'y' : '%H:%M|%b%d',
     \'z' : ['#(whoami)@#H'],
     \'options' : {'status-justify' : 'left'}}
-
-"Unite settings
-" call unite#filters#matcher_default#use(['matcher_fuzzy'])
-" call unite#custom#profile('default', 'context', {
-"             \   'start_insert': 1,
-"             \   'winheight': 10,
-"             \   'direction': 'botright',
-"             \ })
-
-autocmd FileType unite call s:unite_settings()
-
-"recomended settings for syntastic
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-"
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 2
-" let g:syntastic_check_on_open = 0
-" let g:syntastic_check_on_wq = 0
-" let g:syntastic_error_symbol = "✗"
-" let g:syntastic_warning_symbol = "⚠"
-"
-" let g:syntastic_mode_map = {"mode": "active"} "need to manually SyntasticCheck()
 
 let g:task_rc_override = 'rc.defaultwidth=0'
 
@@ -279,6 +245,12 @@ let g:gutentags_cache_dir = '~/.cache/gutentags'
 " Use markdown syntax for vimwiki
 let g:vimwiki_list = [{'path': '~/vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
+
+"slimv configuration
+let g:slime_target = "tmux"
+let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
+
+let test#strategy = "vimux"
 "}}}
 
 " =========== Keyboard mappings ============ {{{
@@ -288,7 +260,9 @@ nnoremap ; :
 vnoremap ; :
 
 inoremap jk <ESC>
-tnoremap <ESC><ESC> <C-\><C-n>
+if has('nvim')
+    tnoremap <ESC><ESC> <C-\><C-n>
+endif
 
 "quit vim
 :nnoremap <leader><leader> :wq<CR>
