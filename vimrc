@@ -342,11 +342,6 @@ nnoremap <leader>gc :Git commit -a
 " Open git fugitive status in new tab
 nnoremap <leader>gs :tabe<CR>:Gstatus<CR>
 
-"Unite
-" nnoremap <C-p> :Unite file file_rec buffer<CR>
-
-"Unite
-" nnoremap <C-p> :Unite file file_rec buffer<CR>
 
 "Toggle spelling
 nnoremap <leader>sp :set spell!<CR>
@@ -355,10 +350,6 @@ nnoremap <leader>sp :set spell!<CR>
 :nnoremap <leader>w :ToggleWhitespace<cr>
 :nnoremap <leader>sw :StripWhitespace<cr>
 let g:better_whitespace_filetypes_blacklist=['txt']
-
-" Tabularize mappings
-:nnoremap <leader>t :Tab /
-:vnoremap <leader>t :Tab /
 
 
 "Search for visually selected text
@@ -385,9 +376,17 @@ iabbrev teh the
 vnoremap Q gq
 nnoremap Q gqap
 
+nnoremap <leader>pb Oimport pdb; pdb.set_trace()<Esc>^
 let g:CtrlSpaceDefaultMappingKey = "<C-space> "
 
 let g:jedi#goto_command = "<leader>d"
+
+nnoremap <leader>pf Ofrom core.util.profile import profile<Cr>@profile('/tmp/')<Esc>hi
+
+"Run Unit tests
+nnoremap <leader>tf :TestFile<CR>
+nnoremap <leader>tn :TestNearest<CR>
+nnoremap <leader>tl :TestLast<CR>
 "}}}
 
 " =============== Functions ================ {{{
