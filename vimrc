@@ -5,6 +5,7 @@
 " ========== Pluggins ========== {{{
 
 call plug#begin()
+Plug 'dstein64/vim-startuptime'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'flazz/vim-colorschemes'
@@ -19,7 +20,7 @@ Plug 'Valloric/ListToggle'
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'tpope/vim-vinegar'
 Plug 'benekastah/neomake',
-Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'vim-scripts/TaskList.vim', {'on': 'TaskList'}
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 " Plug 'edkolev/tmuxline.vim'
@@ -38,7 +39,7 @@ Plug 'vimwiki/vimwiki/'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'mhinz/vim-signify'
-Plug 'bling/vim-bufferline'
+" Plug 'bling/vim-bufferline'
 Plug 'lambdalisue/vim-unified-diff'
 Plug 'christoomey/vim-conflicted'
 Plug 'yegappan/greplace'
@@ -49,18 +50,23 @@ Plug 'rhysd/git-messenger.vim'
 Plug 'janko/vim-test'
 Plug 'benmills/vimux'
 if !has('nvim')
-   Plug 'Shougo/neocomplete.vim'
+	Plug 'Shougo/neocomplete.vim'
 else
-   Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
-   Plug 'zchee/deoplete-clang'
-   Plug 'zchee/deoplete-jedi', {'for': 'python'}
-   Plug 'davidhalter/jedi', {'for': 'python'}
-   let g:deoplete#enable_at_startup = 1
-   let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-   let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
-   let g:jedi#auto_initialization=1
-   let g:jedi#auto_vim_configuration=1
-   let g:jedi#popup_on_dot=1
+	Plug 'prabirshrestha/async.vim'
+	" Plug 'dense-analysis/ale'
+	Plug 'prabirshrestha/vim-lsp'
+	Plug 'mattn/vim-lsp-settings'
+	Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+	" Plug 'lighttiger2505/deoplete-vim-lsp'
+	" let g:deoplete#enable_at_startup = 1
+	" Plug 'zchee/deoplete-clang'
+	Plug 'zchee/deoplete-jedi', {'for': 'python'}
+	Plug 'davidhalter/jedi', {'for': 'python'}
+	" let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+	" let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
+	let g:jedi#auto_initialization=1
+	let g:jedi#auto_vim_configuration=1
+	" let g:jedi#popup_on_dot=1
 endif
 
 call plug#end()
@@ -122,7 +128,7 @@ set list lcs=tab:»·,eol:¬
 
 " set autoindent
 set shiftwidth=4
-" set tabstop=4
+set tabstop=4
 " set expandtab
 " set softtabstop=4
 
@@ -233,9 +239,17 @@ let g:neomake_error_sign = {
    \ 'texthl': 'ErrorMsg',
    \ }
 
-"neocomplete
+" Run linters when reading and writing files, and normal mode changes
+call neomake#configure#automake('rnw', 200)
+
+" Disable virtual text for now because it gets too distracting
+let g:neomake_virtualtext_current_error = 0
+
+"neocomplete/deoplete
 let g:neocomplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
+let g:deoplete#enable_smart_case = 1
 let g:neocomplete#max_list = 25
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
@@ -251,6 +265,35 @@ let g:slime_target = "tmux"
 let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
 
 let test#strategy = "vimux"
+
+" Language Server Protocol setup
+if executable('pyls')
+    " pip install python-language-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
+
+function! s:on_lsp_buffer_enabled() abort
+    " setlocal omnifunc=lsp#complete
+    " setlocal signcolumn=yes
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> <leader>r <plug>(lsp-rename)
+    nmap <buffer> K <plug>(lsp-hover)
+    " refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
+let g:lsp_diagnostics_enabled = 0
+
 "}}}
 
 " =========== Keyboard mappings ============ {{{
@@ -263,9 +306,6 @@ inoremap jk <ESC>
 if has('nvim')
     tnoremap <ESC><ESC> <C-\><C-n>
 endif
-
-"quit vim
-:nnoremap <leader><leader> :wq<CR>
 
 "Saving keybinds
 :nnoremap <C-s> :w<CR>
@@ -299,17 +339,17 @@ nnoremap <leader>fm :set foldmethod=marker<CR>
 :nnoremap <C-\>> 5<C-w>>
 
 "Move line up or down
-nnoremap - ddp
-nnoremap _ ddkP
+" nnoremap - ddp
+" nnoremap _ ddkP
 
 "Join line above (like J)
-nnoremap K ddkPJ
+" nnoremap K ddkPJ
 
 "change function parameter
 nnoremap cp ct,
 
 "Bind for fzf
-nnoremap <C-m> :Files<CR>
+nnoremap <C-p><C-f> :Files<CR>
 nnoremap <C-p><C-p> :GFiles<CR>
 nnoremap <C-p><C-b> :Buffers<CR>
 nnoremap <C-p><C-t> :Tags<CR>
@@ -321,7 +361,7 @@ nnoremap L $
 
 "Insert newlines without leaving normal mode
 "nnoremap <S-CR> O<Esc> Doesn't work....
-nnoremap <CR> o<Esc>
+" nnoremap <C-M> o<Esc>
 
 "Edit vimrc in new tab
 nnoremap <leader>ev :tabe $MYVIMRC<cr>
@@ -377,9 +417,6 @@ vnoremap Q gq
 nnoremap Q gqap
 
 nnoremap <leader>pb Oimport pdb; pdb.set_trace()<Esc>^
-let g:CtrlSpaceDefaultMappingKey = "<C-space> "
-
-let g:jedi#goto_command = "<leader>d"
 
 nnoremap <leader>pf Ofrom core.util.profile import profile<Cr>@profile('/tmp/')<Esc>hi
 
