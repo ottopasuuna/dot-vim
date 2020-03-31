@@ -15,7 +15,7 @@ Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-peekaboo'
 " Plug 'rust-lang/rust.vim', {'for': 'rust'}
-Plug 'ludovicchabant/vim-gutentags'
+" Plug 'ludovicchabant/vim-gutentags'
 Plug 'Valloric/ListToggle'
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'tpope/vim-vinegar'
@@ -95,6 +95,10 @@ autocmd! bufwritepost ~/.vimrc source %
 autocmd! BufWritePost * Neomake
 
 au FileType txt set tw=80 spell
+
+filetype plugin indent on
+
+au BufRead,BufNewFile *.lib.* set filetype=liberty
 
 "Allow mouse support
 set mouse=a
@@ -254,7 +258,7 @@ let g:neocomplete#max_list = 25
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " set gutentags cache directory
-let g:gutentags_cache_dir = '~/.cache/gutentags'
+" let g:gutentags_cache_dir = '~/.cache/gutentags'
 
 " Use markdown syntax for vimwiki
 let g:vimwiki_list = [{'path': '~/vimwiki/',
@@ -294,6 +298,7 @@ augroup END
 
 let g:lsp_diagnostics_enabled = 0
 
+let g:git_messenger_always_into_popup = 1
 "}}}
 
 " =========== Keyboard mappings ============ {{{
@@ -327,7 +332,7 @@ nnoremap <leader>fm :set foldmethod=marker<CR>
 :nnoremap <leader>m :bn<CR>
 
 "close buffer
-:nnoremap <leader>q :bd<CR>
+" :nnoremap <leader>q :bd<CR>
 
 "move beween windows
 :nnoremap <C-k> <C-w>k
@@ -353,6 +358,7 @@ nnoremap <C-p><C-f> :Files<CR>
 nnoremap <C-p><C-p> :GFiles<CR>
 nnoremap <C-p><C-b> :Buffers<CR>
 nnoremap <C-p><C-t> :Tags<CR>
+nnoremap <C-p><C-g> :BTags<CR>
 nnoremap <C-p><C-r> :Rg
 
 "Move to begining and end of line
@@ -362,6 +368,8 @@ nnoremap L $
 "Insert newlines without leaving normal mode
 "nnoremap <S-CR> O<Esc> Doesn't work....
 " nnoremap <C-M> o<Esc>
+nnoremap - o<ESC>
+nnoremap _ O<ESC>
 
 "Edit vimrc in new tab
 nnoremap <leader>ev :tabe $MYVIMRC<cr>
@@ -375,7 +383,7 @@ nnoremap <F8> :TagbarToggle<cr>
 "syntax checking
 " nnoremap <leader>sc :SyntasticCheck<CR>
 let g:lt_location_list_toggle_map = '<leader>l'
-let g:lt_quickfix_list_toggle_map = '<leader>p'
+let g:lt_quickfix_list_toggle_map = '<leader>q'
 
 "Git add and commit
 nnoremap <leader>gc :Git commit -a
@@ -418,7 +426,7 @@ nnoremap Q gqap
 
 nnoremap <leader>pb Oimport pdb; pdb.set_trace()<Esc>^
 
-nnoremap <leader>pf Ofrom core.util.profile import profile<Cr>@profile('/tmp/')<Esc>hi
+nnoremap <leader>ct :!ctags -R src<CR>
 
 "Run Unit tests
 nnoremap <leader>tf :TestFile<CR>
@@ -444,3 +452,6 @@ endfunction
 
 "}}}
 
+if filereadable(expand('~/.vimrc_work'))
+	exe "source " . expand("~/.vimrc_work")
+endif
