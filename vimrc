@@ -14,13 +14,15 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-peekaboo'
-" Plug 'rust-lang/rust.vim', {'for': 'rust'}
+Plug 'rust-lang/rust.vim', {'for': 'rust'}
+Plug 'wlangstroth/vim-racket'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'Valloric/ListToggle'
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'tpope/vim-vinegar'
 Plug 'benekastah/neomake',
-Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
+" Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
+Plug 'liuchengxu/vista.vim'
 Plug 'vim-scripts/TaskList.vim', {'on': 'TaskList'}
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 " Plug 'edkolev/tmuxline.vim'
@@ -305,6 +307,11 @@ vnoremap ; :
 inoremap jk <ESC>
 if has('nvim')
     tnoremap <ESC><ESC> <C-\><C-n>
+    tnoremap <A-h> <C-\><C-N><C-w>h
+    tnoremap <A-j> <C-\><C-N><C-w>j
+    tnoremap <A-k> <C-\><C-N><C-w>k
+    tnoremap <A-l> <C-\><C-N><C-w>l
+    inoremap <A-h> <C-\><C-N><C-w>h
 endif
 
 "Saving keybinds
@@ -370,7 +377,8 @@ nnoremap <F1> :e.<cr>
 nnoremap <F2> :UndotreeToggle<cr>
 nnoremap <F3> :NERDTreeToggle<cr>
 nnoremap <F5> :Neomake!<CR>
-nnoremap <F8> :TagbarToggle<cr>
+" nnoremap <F8> :TagbarToggle<cr>
+nnoremap <F8> :Vista!!<cr>
 
 "syntax checking
 " nnoremap <leader>sc :SyntasticCheck<CR>
