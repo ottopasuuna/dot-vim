@@ -301,6 +301,10 @@ augroup END
 let g:lsp_diagnostics_enabled = 0
 
 let g:git_messenger_always_into_popup = 1
+
+let scheme_autopairs = {'(':')', '[':']', '{':'}','"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''"}
+au BufRead *.scm let b:AutoPairs = scheme_autopairs
+au BufRead *.rkt let b:AutoPairs = scheme_autopairs
 "}}}
 
 " =========== Keyboard mappings ============ {{{
@@ -317,6 +321,10 @@ if has('nvim')
     tnoremap <A-k> <C-\><C-N><C-w>k
     tnoremap <A-l> <C-\><C-N><C-w>l
     inoremap <A-h> <C-\><C-N><C-w>h
+    nnoremap <A-h> <C-w>h
+    nnoremap <A-l> <C-w>l
+    nnoremap <A-j> <C-w>j
+    nnoremap <A-k> <C-w>k
 endif
 
 "Saving keybinds
@@ -324,7 +332,7 @@ endif
 :inoremap <C-s> <ESC>:w<CR>a
 
 "space in normal mode toggles folding
-nnoremap <space> za
+" nnoremap <space> za
 
 "switch to indent folding
 nnoremap <leader>fi :set foldmethod=indent<CR>
@@ -340,6 +348,7 @@ nnoremap <leader>fm :set foldmethod=marker<CR>
 
 "close buffer
 " :nnoremap <leader>q :bd<CR>
+nmap <space> <leader>
 
 "move beween windows
 :nnoremap <C-k> <C-w>k
@@ -421,6 +430,8 @@ nnoremap <leader><space> i <esc>la <esc>h
 
 "Git/fugitive hotkeys
 nnoremap <leader>gc :Git commit -a<CR>
+
+nmap <leader>) ysa))a
 
 "abbreviations (auto insert/correct text)
 iabbrev tehn then
