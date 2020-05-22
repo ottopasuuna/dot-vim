@@ -23,13 +23,6 @@ Plug 'wlangstroth/vim-racket'
 Plug 'Valloric/ListToggle'
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'tpope/vim-vinegar'
-Plug 'benekastah/neomake',
-if !s:old_vim_version()
-	Plug 'liuchengxu/vista.vim'
-else
-	Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
-endif
-
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 " Plug 'edkolev/tmuxline.vim'
 Plug 'jpalardy/vim-slime'
@@ -55,11 +48,13 @@ Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'chrisbra/vim-diff-enhanced'
 Plug 'lambdalisue/vim-unified-diff'
 Plug 'christoomey/vim-conflicted'
-Plug 'rhysd/git-messenger.vim'
 Plug 'janko/vim-test'
 Plug 'benmills/vimux'
-if !has('nvim')
-	Plug 'Shougo/neocomplete.vim'
+if s:old_vim_version()
+    if has('+lua')
+        Plug 'Shougo/neocomplete.vim'
+    endif
+	Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 else
 	Plug 'prabirshrestha/async.vim'
 	" Plug 'dense-analysis/ale'
@@ -76,6 +71,9 @@ else
 	let g:jedi#auto_initialization=1
 	let g:jedi#auto_vim_configuration=1
 	" let g:jedi#popup_on_dot=1
+    Plug 'benekastah/neomake',
+    Plug 'rhysd/git-messenger.vim'
+	Plug 'liuchengxu/vista.vim'
 endif
 
 call plug#end()
@@ -92,6 +90,8 @@ runtime! plugin/sensible.vim
 
 "Enable hidden buffers
 set hidden
+
+set encoding=utf-8
 
 "Disable the swapfile and backups
 set noswapfile
@@ -154,7 +154,9 @@ set foldlevelstart=0 " Just for forcing us to learn folds...
 let g:python3_host_prog = $HOME . '/.local/share/miniconda3/envs/neovim/bin/python'
 let $PATH .= ':' . $HOME . '/.local/share/miniconda3/envs/neovim/bin'
 
-set nofixendofline
+if !s:old_vim_version()
+    set nofixendofline
+endif
 
 set cursorline
 
@@ -243,17 +245,25 @@ let g:neomake_error_sign = {
    \ }
 
 " Run linters when reading and writing files, and normal mode changes
-call neomake#configure#automake('rnw', 200)
+if exists('*neomake#configure#automake')
+    call neomake#configure#automake('rnw', 200)
+endif
 
 " Disable virtual text for now because it gets too distracting
 let g:neomake_virtualtext_current_error = 0
 
 "neocomplete/deoplete
-let g:neocomplete#enable_at_startup = 1
-let g:deoplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:deoplete#enable_smart_case = 1
-let g:neocomplete#max_list = 25
+if !s:old_vim_version()
+    let g:deoplete#enable_at_startup = 1
+    call deoplete#custom#option({
+        \ 'smart_case': 1,
+        \ 'max_list': 25
+        \ })
+else
+    let g:neocomplete#enable_at_startup = 1
+    let g:neocomplete#enable_smart_case = 1
+    let g:neocomplete#max_list = 25
+endif
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " set gutentags cache directory
