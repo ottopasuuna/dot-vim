@@ -2,6 +2,9 @@
 "               Carl's .vimrc
 "===========================================
 
+function! s:old_vim_version()
+	return !has('nvim') && v:version < 800
+endfunction
 " ========== Pluggins ========== {{{
 
 call plug#begin()
@@ -21,9 +24,12 @@ Plug 'Valloric/ListToggle'
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'tpope/vim-vinegar'
 Plug 'benekastah/neomake',
-" Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
-Plug 'liuchengxu/vista.vim'
-Plug 'vim-scripts/TaskList.vim', {'on': 'TaskList'}
+if !s:old_vim_version()
+	Plug 'liuchengxu/vista.vim'
+else
+	Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
+endif
+
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 " Plug 'edkolev/tmuxline.vim'
 Plug 'jpalardy/vim-slime'
@@ -33,6 +39,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-sensible'
+Plug 'unblevable/quick-scope'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tomtom/tcomment_vim'
 " Plug 'mattn/emmet-vim'
@@ -42,12 +49,12 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'mhinz/vim-signify'
 " Plug 'bling/vim-bufferline'
-Plug 'lambdalisue/vim-unified-diff'
-Plug 'christoomey/vim-conflicted'
 Plug 'yegappan/greplace'
 Plug 'Yggdroot/indentLine'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'chrisbra/vim-diff-enhanced'
+Plug 'lambdalisue/vim-unified-diff'
+Plug 'christoomey/vim-conflicted'
 Plug 'rhysd/git-messenger.vim'
 Plug 'janko/vim-test'
 Plug 'benmills/vimux'
@@ -130,25 +137,17 @@ let g:netrw_liststyle=3
 "Show some nonprinting characters
 set list lcs=tab:»·,eol:¬
 
-"Tab settings
-
 " set autoindent
 set shiftwidth=4
 set tabstop=4
-" set expandtab
-" set softtabstop=4
-
-"Highlight search items
-" set hlsearch
-" set incsearch
+set expandtab
+set softtabstop=4
 
 set completeopt-=preview
 
-"Create code folds via '{{{ <code> }}}'
-" zo   open fold
-" zc   clse fold
-" za   toggle fold
-set foldmethod=marker
+"Folding method
+set foldmethod=indent
+set foldlevelstart=0 " Just for forcing us to learn folds...
 
 
 " Use python from a conda environment
@@ -159,9 +158,7 @@ set nofixendofline
 
 set cursorline
 
-" syntax on
 colorscheme molokai
-"colorscheme ottopasuuna
 highlight Normal ctermbg=None
 
 " Revert molokai change that makes matching parenthesis hard to read
@@ -263,8 +260,9 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " let g:gutentags_cache_dir = '~/.cache/gutentags'
 
 " Use markdown syntax for vimwiki
-let g:vimwiki_list = [{'path': '~/vimwiki/',
-                      \ 'syntax': 'markdown', 'ext': '.md'}]
+" let g:vimwiki_list = [{'path': '~/vimwiki/',
+"                       \ 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_list = [{'path': '~/vimwiki/' }]
 
 "slimv configuration
 let g:slime_target = "tmux"
@@ -305,6 +303,8 @@ let g:git_messenger_always_into_popup = 1
 let scheme_autopairs = {'(':')', '[':']', '{':'}','"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''"}
 au BufRead *.scm let b:AutoPairs = scheme_autopairs
 au BufRead *.rkt let b:AutoPairs = scheme_autopairs
+
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 "}}}
 
 " =========== Keyboard mappings ============ {{{
@@ -333,6 +333,10 @@ endif
 
 "space in normal mode toggles folding
 " nnoremap <space> za
+nnoremap ZO zO
+nnoremap ZC zC
+nnoremap ZM zM
+nnoremap ZR zR
 
 "switch to indent folding
 nnoremap <leader>fi :set foldmethod=indent<CR>
@@ -394,8 +398,11 @@ nnoremap <F1> :e.<cr>
 nnoremap <F2> :UndotreeToggle<cr>
 nnoremap <F3> :NERDTreeToggle<cr>
 nnoremap <F5> :Neomake!<CR>
-" nnoremap <F8> :TagbarToggle<cr>
-nnoremap <F8> :Vista!!<cr>
+if !s:old_vim_version()
+	nnoremap <F8> :Vista!!<cr>
+else
+	nnoremap <F8> :TagbarToggle<cr>
+endif
 
 "syntax checking
 " nnoremap <leader>sc :SyntasticCheck<CR>
@@ -403,7 +410,7 @@ let g:lt_location_list_toggle_map = '<leader>l'
 let g:lt_quickfix_list_toggle_map = '<leader>q'
 
 "Git add and commit
-nnoremap <leader>gc :Git commit -a
+" nnoremap <leader>gc :Git commit -a
 " Open git fugitive status in new tab
 nnoremap <leader>gs :tabe<CR>:Gstatus<CR>
 
@@ -474,3 +481,5 @@ endfunction
 if filereadable(expand('~/.vimrc_work'))
 	exe "source " . expand("~/.vimrc_work")
 endif
+
+" vim: set foldmethod=marker:
