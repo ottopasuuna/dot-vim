@@ -62,18 +62,18 @@ else
 	Plug 'mattn/vim-lsp-settings'
 	Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 	" Plug 'lighttiger2505/deoplete-vim-lsp'
-	" let g:deoplete#enable_at_startup = 1
 	" Plug 'zchee/deoplete-clang'
 	Plug 'zchee/deoplete-jedi', {'for': 'python'}
-	Plug 'davidhalter/jedi', {'for': 'python'}
+	Plug 'davidhalter/jedi-vim', {'for': 'python'}
 	" let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
 	" let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
 	let g:jedi#auto_initialization=1
 	let g:jedi#auto_vim_configuration=1
-	" let g:jedi#popup_on_dot=1
+    let g:jedi#completions_enabled = 0
     Plug 'benekastah/neomake',
     Plug 'rhysd/git-messenger.vim'
 	Plug 'liuchengxu/vista.vim'
+    " Plug 'puremourning/vimspector'
 endif
 
 call plug#end()
@@ -177,9 +177,7 @@ let g:airline#extensions#tmuxline#enabled = 0
 let g:airline#extensions#bufferline#enabled = 1
 let g:airline#extensions#tabline#enabled = 0
 let g:airline#extensions#hunks#enabled = 0
-let g:airline#extensions#whitespace#trailing_format = 't[%s]'
-let g:airline#extensions#whitespace#mixed_indent_format = 'm[%s]'
-let g:airline#extensions#whitespace#mixed_indent_file_format = 'mf[%s]'
+let g:airline#extensions#whitespace#enabled = 0
 let g:airline_mode_map = {
       \ '__' : '-',
       \ 'n'  : 'N',
@@ -307,6 +305,8 @@ augroup lsp_install
 augroup END
 
 let g:lsp_diagnostics_enabled = 0
+let g:lsp_highlight_references_enabled = 1
+highlight lspReference ctermfg=white guifg=white ctermbg=black guibg=black
 
 let g:git_messenger_always_into_popup = 1
 
@@ -315,6 +315,8 @@ au BufRead *.scm let b:AutoPairs = scheme_autopairs
 au BufRead *.rkt let b:AutoPairs = scheme_autopairs
 
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+
+let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
 "}}}
 
 " =========== Keyboard mappings ============ {{{
@@ -468,6 +470,9 @@ nnoremap <leader>ct :!ctags -R src<CR>
 nnoremap <leader>tf :TestFile<CR>
 nnoremap <leader>tn :TestNearest<CR>
 nnoremap <leader>tl :TestLast<CR>
+
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '>-2<CR>gv=gv
 "}}}
 
 " =============== Functions ================ {{{
