@@ -50,6 +50,8 @@ Plug 'lambdalisue/vim-unified-diff'
 Plug 'christoomey/vim-conflicted'
 Plug 'janko/vim-test'
 Plug 'benmills/vimux'
+Plug 'machakann/vim-highlightedyank'
+Plug 'kshenoy/vim-signature'
 if s:old_vim_version()
     if has('+lua')
         Plug 'Shougo/neocomplete.vim'
@@ -68,7 +70,7 @@ else
 	" let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
 	" let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
 	let g:jedi#auto_initialization=1
-	let g:jedi#auto_vim_configuration=1
+	let g:jedi#auto_vim_configuration=0
     let g:jedi#completions_enabled = 0
     Plug 'benekastah/neomake',
     Plug 'rhysd/git-messenger.vim'
@@ -224,8 +226,9 @@ let g:fzf_colors =
   \ 'pointer': ['fg', 'Exception'],
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }"Neomake
+  \ 'header':  ['fg', 'Comment'] }
 
+"Neomake
 let g:neomake_c_gcc_maker = {
    \ 'args': ['-Wall -Werror -pedantic'],
    \}
@@ -244,7 +247,7 @@ let g:neomake_error_sign = {
 
 " Run linters when reading and writing files, and normal mode changes
 if exists('*neomake#configure#automake')
-    call neomake#configure#automake('rnw', 200)
+    call neomake#configure#automake('rnw', 100)
 endif
 
 " Disable virtual text for now because it gets too distracting
@@ -265,7 +268,11 @@ endif
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " set gutentags cache directory
-" let g:gutentags_cache_dir = '~/.cache/gutentags'
+let g:gutentags_cache_dir = '~/.cache/gutentags'
+let g:gutentags_project_root = ['.git']
+let g:gutentags_add_default_project_roots = v:false
+let g:gutentags_add_ctrlp_root_markers = v:false
+let g:gutentags_define_advanced_commands = v:true
 
 " Use markdown syntax for vimwiki
 " let g:vimwiki_list = [{'path': '~/vimwiki/',
@@ -306,7 +313,8 @@ augroup END
 
 let g:lsp_diagnostics_enabled = 0
 let g:lsp_highlight_references_enabled = 1
-highlight lspReference ctermfg=white guifg=white ctermbg=black guibg=black
+" highlight lspReference ctermfg=white guifg=white ctermbg=black guibg=black
+highlight lspReference ctermbg=black guibg=black
 
 let g:git_messenger_always_into_popup = 1
 
@@ -317,6 +325,16 @@ au BufRead *.rkt let b:AutoPairs = scheme_autopairs
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
+
+let g:vista_executive_for = {
+  \ 'python': 'vim_lsp',
+  \ }
+
+let g:highlightedyank_highlight_duration = 350
+if !exists('##TextYankPost')
+  map y <Plug>(highlightedyank)
+endif
+
 "}}}
 
 " =========== Keyboard mappings ============ {{{
@@ -458,6 +476,8 @@ iabbrev incldue include
 iabbrev enld endl
 iabbrev teh the
 
+nnoremap <leader>now :read !date<cr>
+
 " Wrap text
 vnoremap Q gq
 nnoremap Q gqap
@@ -476,12 +496,6 @@ vnoremap K :m '>-2<CR>gv=gv
 "}}}
 
 " =============== Functions ================ {{{
-
-"settings for unite interface
-function! s:unite_settings()
-    imap <buffer> <C-j> <Plug>(unite_select_next_line)
-    imap <buffer> <C-k> <Plug>(unite_select_previous_line)
-endfunction
 
 function! Header_guard(var)
     put ='#ifndef __' . a:var . '__'
