@@ -72,7 +72,9 @@ else
 	let g:jedi#auto_initialization=1
 	let g:jedi#auto_vim_configuration=0
     let g:jedi#completions_enabled = 0
-    let g:jedi#show_call_signatures=0
+    let g:jedi#show_call_signatures = 0
+    let g:jedi#usages_command = 0
+    let g:jedi#rename_command = 0
     Plug 'benekastah/neomake',
     Plug 'rhysd/git-messenger.vim'
 	Plug 'liuchengxu/vista.vim'
