@@ -72,6 +72,7 @@ else
 	let g:jedi#auto_initialization=1
 	let g:jedi#auto_vim_configuration=0
     let g:jedi#completions_enabled = 0
+    let g:jedi#show_call_signatures=0
     Plug 'benekastah/neomake',
     Plug 'rhysd/git-messenger.vim'
 	Plug 'liuchengxu/vista.vim'
@@ -105,7 +106,7 @@ autocmd! bufwritepost ~/.vimrc source %
 "Automatically run syntax checks on saving
 autocmd! BufWritePost * Neomake
 
-au FileType txt set tw=80 spell
+au FileType txt,wiki set tw=80 spell
 
 filetype plugin indent on
 
@@ -148,8 +149,11 @@ set softtabstop=4
 set completeopt-=preview
 
 "Folding method
-set foldmethod=indent
-set foldlevelstart=0 " Just for forcing us to learn folds...
+set foldmethod=marker
+" set foldlevelstart=0 " Just for forcing us to learn folds...
+
+set ignorecase
+set smartcase
 
 
 " Use python from a conda environment
@@ -270,9 +274,9 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " set gutentags cache directory
 let g:gutentags_cache_dir = '~/.cache/gutentags'
 let g:gutentags_project_root = ['.git']
-let g:gutentags_add_default_project_roots = v:false
-let g:gutentags_add_ctrlp_root_markers = v:false
-let g:gutentags_define_advanced_commands = v:true
+let g:gutentags_add_default_project_roots = 0
+let g:gutentags_add_ctrlp_root_markers = 0
+let g:gutentags_define_advanced_commands = 1
 
 " Use markdown syntax for vimwiki
 " let g:vimwiki_list = [{'path': '~/vimwiki/',
@@ -449,7 +453,7 @@ nnoremap <leader>gs :tabe<CR>:Gstatus<CR>
 nnoremap <leader>sp :set spell!<CR>
 
 "better-whitespace plugin:
-:nnoremap <leader>w :ToggleWhitespace<cr>
+:nnoremap <leader>tw :ToggleWhitespace<cr>
 :nnoremap <leader>sw :StripWhitespace<cr>
 let g:better_whitespace_filetypes_blacklist=['txt']
 
