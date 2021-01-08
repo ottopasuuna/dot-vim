@@ -450,6 +450,9 @@ let g:lt_quickfix_list_toggle_map = '<leader>q'
 " Open git fugitive status in new tab
 nnoremap <leader>gs :tabe<CR>:Gstatus<CR>
 
+" Close current tab
+nnoremap <leader>tq :tabc<CR>
+
 
 "Toggle spelling
 nnoremap <leader>sp :set spell!<CR>
