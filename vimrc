@@ -115,7 +115,7 @@ autocmd! bufwritepost ~/.vimrc source %
 "Automatically run syntax checks on saving
 autocmd! BufWritePost * Neomake
 
-au FileType txt set tw=80 spell
+au FileType txt,wiki set tw=80 spell
 
 filetype plugin indent on
 
@@ -158,8 +158,11 @@ set softtabstop=4
 set completeopt-=preview
 
 "Folding method
-set foldmethod=indent
-set foldlevelstart=0 " Just for forcing us to learn folds...
+set foldmethod=marker
+" set foldlevelstart=0 " Just for forcing us to learn folds...
+
+set ignorecase
+set smartcase
 
 
 " Use python from a conda environment
@@ -280,9 +283,9 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " set gutentags cache directory
 let g:gutentags_cache_dir = '~/.cache/gutentags'
 let g:gutentags_project_root = ['.git']
-let g:gutentags_add_default_project_roots = v:false
-let g:gutentags_add_ctrlp_root_markers = v:false
-let g:gutentags_define_advanced_commands = v:true
+let g:gutentags_add_default_project_roots = 0
+let g:gutentags_add_ctrlp_root_markers = 0
+let g:gutentags_define_advanced_commands = 1
 
 " Use markdown syntax for vimwiki
 " let g:vimwiki_list = [{'path': '~/vimwiki/',
@@ -464,12 +467,15 @@ let g:lt_quickfix_list_toggle_map = '<leader>q'
 " Open git fugitive status in new tab
 nnoremap <leader>gs :tabe<CR>:Gstatus<CR>
 
+" Close current tab
+nnoremap <leader>tq :tabc<CR>
+
 
 "Toggle spelling
 nnoremap <leader>sp :set spell!<CR>
 
 "better-whitespace plugin:
-:nnoremap <leader>w :ToggleWhitespace<cr>
+:nnoremap <leader>tw :ToggleWhitespace<cr>
 :nnoremap <leader>sw :StripWhitespace<cr>
 let g:better_whitespace_filetypes_blacklist=['txt']
 
