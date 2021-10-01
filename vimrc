@@ -12,7 +12,7 @@ Plug 'dstein64/vim-startuptime'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'flazz/vim-colorschemes'
-Plug 'junegunn/fzf', {'dir': '~/.fzf'}
+Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': { -> fzf#install() }}
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-easy-align'
@@ -38,11 +38,9 @@ Plug 'tomtom/tcomment_vim'
 " Plug 'mattn/emmet-vim'
 " Plug 'blindFS/vim-taskwarrior'
 Plug 'vimwiki/vimwiki/'
-Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'mhinz/vim-signify'
 " Plug 'bling/vim-bufferline'
-Plug 'yegappan/greplace'
 Plug 'Yggdroot/indentLine'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'chrisbra/vim-diff-enhanced'
@@ -52,6 +50,8 @@ Plug 'janko/vim-test'
 Plug 'benmills/vimux'
 Plug 'machakann/vim-highlightedyank'
 Plug 'kshenoy/vim-signature'
+Plug 'jeetsukumaran/vim-pythonsense', {'for': 'python'}
+Plug 'salsifis/vim-transpose'
 if s:old_vim_version()
     if has('+lua')
         Plug 'Shougo/neocomplete.vim'
@@ -65,8 +65,8 @@ else
 	Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 	" Plug 'lighttiger2505/deoplete-vim-lsp'
 	" Plug 'zchee/deoplete-clang'
-	Plug 'zchee/deoplete-jedi', {'for': 'python'}
-	Plug 'davidhalter/jedi-vim', {'for': 'python'}
+	" Plug 'zchee/deoplete-jedi', {'for': 'python'}
+	" Plug 'davidhalter/jedi-vim', {'for': 'python'}
 	" let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
 	" let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
 	let g:jedi#auto_initialization=1
@@ -112,7 +112,8 @@ au FileType txt,wiki set tw=80 spell
 
 filetype plugin indent on
 
-au BufRead,BufNewFile *.lib.* set filetype=liberty
+au BufRead,BufNewFile *.lib* set filetype=liberty
+au BufRead,BufNewFile *.obliv* set filetype=yaml
 
 "Allow mouse support
 set mouse=a
@@ -213,11 +214,20 @@ let g:tmuxline_preset = {
 
 let g:task_rc_override = 'rc.defaultwidth=0'
 
+let g:fzf_layout = {'down': '40%'}
+
+function! s:close_buffers(lines)
+    echom a:lines
+    bp
+    bd a:lines
+endfunction
 " This is the default extra key bindings
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-s': 'split',
-  \ 'ctrl-v': 'vsplit' }
+  \ 'ctrl-v': 'vsplit',
+  \ 'ctrl-x': function('s:close_buffers')}
+
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
@@ -478,12 +488,17 @@ nnoremap <leader><space> i <esc>la <esc>h
 nnoremap <leader>gc :Git commit -a<CR>
 
 nmap <leader>) ysa))a
+nmap <leader>be ysa))abegin<CR>
 
 "abbreviations (auto insert/correct text)
 iabbrev tehn then
 iabbrev incldue include
 iabbrev enld endl
 iabbrev teh the
+iabbrev fitlers filters
+iabbrev fitler filter
+iabbrev Fitler Filter
+iabbrev Fitlers Filters
 
 nnoremap <leader>now :read !date<cr>
 
@@ -492,6 +507,7 @@ vnoremap Q gq
 nnoremap Q gqap
 
 nnoremap <leader>pb Oimport pdb; pdb.set_trace()<Esc>^
+nnoremap <leader>pdb Oimport pudb; pu.db<Esc>^
 
 nnoremap <leader>ct :!ctags -R src<CR>
 
