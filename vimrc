@@ -14,11 +14,17 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'flazz/vim-colorschemes'
 Plug 'junegunn/fzf', {'dir': '~/.fzf'}
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/gv.vim'
+" Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-peekaboo'
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
+Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'wlangstroth/vim-racket'
+Plug 'bakpakin/fennel.vim'
+Plug 'JuliaEditorSupport/julia-vim'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'habamax/vim-godot'
 " Plug 'ludovicchabant/vim-gutentags'
 Plug 'Valloric/ListToggle'
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
@@ -35,7 +41,7 @@ Plug 'tpope/vim-sensible'
 Plug 'unblevable/quick-scope'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tomtom/tcomment_vim'
-" Plug 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim'
 " Plug 'blindFS/vim-taskwarrior'
 Plug 'vimwiki/vimwiki/'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
@@ -58,6 +64,7 @@ if s:old_vim_version()
     endif
 	Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 else
+    Plug 'Olical/conjure', {'tag': 'v4.15.0'}
 	Plug 'prabirshrestha/async.vim'
 	" Plug 'dense-analysis/ale'
 	Plug 'prabirshrestha/vim-lsp'
@@ -65,8 +72,8 @@ else
 	Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 	" Plug 'lighttiger2505/deoplete-vim-lsp'
 	" Plug 'zchee/deoplete-clang'
-	Plug 'zchee/deoplete-jedi', {'for': 'python'}
-	Plug 'davidhalter/jedi-vim', {'for': 'python'}
+	"Plug 'zchee/deoplete-jedi', {'for': 'python'}
+	"Plug 'davidhalter/jedi-vim', {'for': 'python'}
 	" let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
 	" let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
 	let g:jedi#auto_initialization=1
@@ -324,6 +331,7 @@ let g:git_messenger_always_into_popup = 1
 let scheme_autopairs = {'(':')', '[':']', '{':'}','"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''"}
 au BufRead *.scm let b:AutoPairs = scheme_autopairs
 au BufRead *.rkt let b:AutoPairs = scheme_autopairs
+au BufRead *.clj* let b:AutoPairs = scheme_autopairs
 
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
@@ -337,6 +345,15 @@ let g:highlightedyank_highlight_duration = 350
 if !exists('##TextYankPost')
   map y <Plug>(highlightedyank)
 endif
+
+let g:go_fmt_command = "goimports"
+" let g:go_highlight_types = 1
+" let g:go_highlight_fields = 1
+" let g:go_highlight_functions = 1
+" let g:go_highlight_function_calls = 1
+
+let g:conjure#filetype#fennel = "conjure.client.fennel.stdio"
+let g:conjure#client#fennel#stdio#command = "love ."
 
 "}}}
 
