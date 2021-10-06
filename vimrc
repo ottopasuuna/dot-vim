@@ -368,6 +368,9 @@ let g:go_fmt_command = "goimports"
 let g:conjure#filetype#fennel = "conjure.client.fennel.stdio"
 let g:conjure#client#fennel#stdio#command = "love ."
 
+" let g:indentLine_fileTypeExclude = ['markdown', 'json', 'vimwiki', 'wiki', 'txt']
+let g:indentLine_concealcursor = ""
+
 "}}}
 
 " =========== Keyboard mappings ============ {{{
