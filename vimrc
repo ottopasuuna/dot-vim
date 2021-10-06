@@ -25,7 +25,7 @@ Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'tpope/vim-vinegar'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 " Plug 'edkolev/tmuxline.vim'
-Plug 'jpalardy/vim-slime'
+Plug 'jpalardy/vim-slime', {'branch': 'main'}
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
