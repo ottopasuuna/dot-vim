@@ -2,9 +2,8 @@
 "               Carl's .vimrc
 "===========================================
 
-function! s:old_vim_version()
-	return !has('nvim') && v:version < 800
-endfunction
+source ~/.vim/util.vim " For Old_vim_version function
+
 " ========== Pluggins ========== {{{
 
 call plug#begin()
@@ -58,30 +57,18 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'kshenoy/vim-signature'
 Plug 'jeetsukumaran/vim-pythonsense', {'for': 'python'}
 Plug 'salsifis/vim-transpose'
-if s:old_vim_version()
+if Old_vim_version()
     if has('+lua')
         Plug 'Shougo/neocomplete.vim'
     endif
 	Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 else
-    Plug 'Olical/conjure', {'tag': 'v4.15.0'}
+    Plug 'Olical/conjure', {'tag': 'v4.25.0'}
 	Plug 'prabirshrestha/async.vim'
 	" Plug 'dense-analysis/ale'
 	Plug 'prabirshrestha/vim-lsp'
 	Plug 'mattn/vim-lsp-settings'
 	Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
-	" Plug 'lighttiger2505/deoplete-vim-lsp'
-	" Plug 'zchee/deoplete-clang'
-	" Plug 'zchee/deoplete-jedi', {'for': 'python'}
-	" Plug 'davidhalter/jedi-vim', {'for': 'python'}
-	" let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-	" let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
-	let g:jedi#auto_initialization=1
-	let g:jedi#auto_vim_configuration=0
-    let g:jedi#completions_enabled = 0
-    let g:jedi#show_call_signatures = 0
-    let g:jedi#usages_command = 0
-    let g:jedi#rename_command = 0
     Plug 'benekastah/neomake',
     Plug 'rhysd/git-messenger.vim'
 	Plug 'liuchengxu/vista.vim'
@@ -170,7 +157,7 @@ set smartcase
 let g:python3_host_prog = $HOME . '/.local/share/miniconda3/envs/neovim/bin/python'
 let $PATH .= ':' . $HOME . '/.local/share/miniconda3/envs/neovim/bin'
 
-if !s:old_vim_version()
+if !Old_vim_version()
     set nofixendofline
 endif
 
@@ -185,122 +172,21 @@ hi MatchParen      ctermfg=208  ctermbg=233 cterm=bold
 
 " =========== Plugin settings ============== {{{
 
-" turn on vim airline
-set laststatus=2
-let g:airline_powerline_fonts = 1
-let g:airline_theme='powerlineish'
-let g:airline#extensions#tmuxline#enabled = 0
-let g:airline#extensions#bufferline#enabled = 1
-let g:airline#extensions#tabline#enabled = 0
-let g:airline#extensions#hunks#enabled = 0
-let g:airline#extensions#whitespace#enabled = 0
-let g:airline_mode_map = {
-      \ '__' : '-',
-      \ 'n'  : 'N',
-      \ 'i'  : 'I',
-      \ 'R'  : 'R',
-      \ 'c'  : 'C',
-      \ 'v'  : 'V',
-      \ 'V'  : 'V',
-      \ '' : 'V',
-      \ 's'  : 'S',
-      \ 'S'  : 'S',
-      \ '' : 'S',
-      \ }
-" Hide vim's default mode indicator
-set noshowmode
-
-
-let g:tmuxline_preset = {
-    \'a' : '#S',
-    \'win' : ['#I #W'],
-    \'cwin' : ['#I:#P #W'],
-    \'y' : '%H:%M|%b%d',
-    \'z' : ['#(whoami)@#H'],
-    \'options' : {'status-justify' : 'left'}}
+source ~/.vim/plugconfig/airline.vim
+source ~/.vim/plugconfig/fzf.vim
+source ~/.vim/plugconfig/neomake.vim
+source ~/.vim/plugconfig/neocomplete.vim
+source ~/.vim/plugconfig/tmuxline.vim
+source ~/.vim/plugconfig/gutentags.vim
+source ~/.vim/plugconfig/vim-lsp.vim
+source ~/.vim/plugconfig/vimwiki.vim
+source ~/.vim/plugconfig/autopairs.vim
+source ~/.vim/plugconfig/conjure.vim
+source ~/.vim/plugconfig/vim-go.vim
+source ~/.vim/plugconfig/indentline.vim
+source ~/.vim/plugconfig/better-whitespace.vim
 
 let g:task_rc_override = 'rc.defaultwidth=0'
-
-let g:fzf_layout = {'down': '40%'}
-
-function! s:close_buffers(lines)
-    echom a:lines
-    bp
-    bd a:lines
-endfunction
-" This is the default extra key bindings
-let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-s': 'split',
-  \ 'ctrl-v': 'vsplit',
-  \ 'ctrl-x': function('s:close_buffers')}
-
-
-" Customize fzf colors to match your color scheme
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-
-"Neomake
-let g:neomake_c_gcc_maker = {
-   \ 'args': ['-Wall -Werror -pedantic'],
-   \}
-
-let g:neomake_c_enabled_makers = ['gcc']
-let g:neomake_python_enabled_makers = ['python', 'pylint']
-
-let g:neomake_warning_sign = {
-   \ 'text': '⚠',
-   \ 'texthl': 'WarningMsg',
-   \ }
-let g:neomake_error_sign = {
-   \ 'text': '✗',
-   \ 'texthl': 'ErrorMsg',
-   \ }
-
-" Run linters when reading and writing files, and normal mode changes
-if exists('*neomake#configure#automake')
-    call neomake#configure#automake('rnw', 100)
-endif
-
-" Disable virtual text for now because it gets too distracting
-let g:neomake_virtualtext_current_error = 0
-
-"neocomplete/deoplete
-if !s:old_vim_version()
-    let g:deoplete#enable_at_startup = 1
-    call deoplete#custom#option({
-        \ 'smart_case': 1,
-        \ 'max_list': 25
-        \ })
-else
-    let g:neocomplete#enable_at_startup = 1
-    let g:neocomplete#enable_smart_case = 1
-    let g:neocomplete#max_list = 25
-endif
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-" set gutentags cache directory
-let g:gutentags_cache_dir = '~/.cache/gutentags'
-let g:gutentags_project_root = ['.git']
-let g:gutentags_add_default_project_roots = 0
-let g:gutentags_add_ctrlp_root_markers = 0
-let g:gutentags_define_advanced_commands = 1
-
-" Use markdown syntax for vimwiki
-" let g:vimwiki_list = [{'path': '~/vimwiki/',
-"                       \ 'syntax': 'markdown', 'ext': '.md'}]
-let g:vimwiki_list = [{'path': '~/vimwiki/' }]
 
 "slimv configuration
 let g:slime_target = "tmux"
@@ -308,43 +194,7 @@ let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
 
 let test#strategy = "vimux"
 
-" Language Server Protocol setup
-if executable('pyls')
-    " pip install python-language-server
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
-        \ })
-endif
-
-function! s:on_lsp_buffer_enabled() abort
-    " setlocal omnifunc=lsp#complete
-    " setlocal signcolumn=yes
-    nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer> gr <plug>(lsp-references)
-    nmap <buffer> <leader>r <plug>(lsp-rename)
-    nmap <buffer> K <plug>(lsp-hover)
-    " refer to doc to add more commands
-endfunction
-
-augroup lsp_install
-    au!
-    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
-    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
-
-let g:lsp_diagnostics_enabled = 0
-let g:lsp_highlight_references_enabled = 1
-" highlight lspReference ctermfg=white guifg=white ctermbg=black guibg=black
-highlight lspReference ctermbg=black guibg=black
-
 let g:git_messenger_always_into_popup = 1
-
-let scheme_autopairs = {'(':')', '[':']', '{':'}','"':'"', "`":"`", '```':'```', '"""':'"""', "'''":"'''"}
-au BufRead *.scm let b:AutoPairs = scheme_autopairs
-au BufRead *.rkt let b:AutoPairs = scheme_autopairs
-au BufRead *.clj* let b:AutoPairs = scheme_autopairs
 
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
@@ -359,17 +209,6 @@ if !exists('##TextYankPost')
   map y <Plug>(highlightedyank)
 endif
 
-let g:go_fmt_command = "goimports"
-" let g:go_highlight_types = 1
-" let g:go_highlight_fields = 1
-" let g:go_highlight_functions = 1
-" let g:go_highlight_function_calls = 1
-
-let g:conjure#filetype#fennel = "conjure.client.fennel.stdio"
-let g:conjure#client#fennel#stdio#command = "love ."
-
-" let g:indentLine_fileTypeExclude = ['markdown', 'json', 'vimwiki', 'wiki', 'txt']
-let g:indentLine_concealcursor = ""
 
 "}}}
 
@@ -439,14 +278,6 @@ nmap <space> <leader>
 "change function parameter
 nnoremap cp ct,
 
-"Bind for fzf
-nnoremap <C-p><C-f> :Files<CR>
-nnoremap <C-p><C-p> :GFiles<CR>
-nnoremap <C-p><C-b> :Buffers<CR>
-nnoremap <C-p><C-t> :Tags<CR>
-nnoremap <C-p><C-g> :BTags<CR>
-nnoremap <C-p><C-r> :Rg
-
 "Move to begining and end of line
 nnoremap H ^
 nnoremap L $
@@ -464,7 +295,7 @@ nnoremap <F1> :e.<cr>
 nnoremap <F2> :UndotreeToggle<cr>
 nnoremap <F3> :NERDTreeToggle<cr>
 nnoremap <F5> :Neomake!<CR>
-if !s:old_vim_version()
+if !Old_vim_version()
 	nnoremap <F8> :Vista!!<cr>
 else
 	nnoremap <F8> :TagbarToggle<cr>
@@ -486,12 +317,6 @@ nnoremap <leader>tq :tabc<CR>
 
 "Toggle spelling
 nnoremap <leader>sp :set spell!<CR>
-
-"better-whitespace plugin:
-:nnoremap <leader>tw :ToggleWhitespace<cr>
-:nnoremap <leader>sw :StripWhitespace<cr>
-let g:better_whitespace_filetypes_blacklist=['txt']
-
 
 "Search for visually selected text
 vnoremap // y/<C-R>"<CR>
