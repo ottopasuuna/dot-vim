@@ -13,67 +13,35 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'flazz/vim-colorschemes'
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': { -> fzf#install() }}
 Plug 'junegunn/fzf.vim'
-" Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-easy-align'
-Plug 'junegunn/vim-peekaboo'
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
-Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'wlangstroth/vim-racket'
 Plug 'bakpakin/fennel.vim'
 Plug 'JuliaEditorSupport/julia-vim'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'habamax/vim-godot'
-" Plug 'ludovicchabant/vim-gutentags'
 Plug 'Valloric/ListToggle'
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
-Plug 'tpope/vim-vinegar'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
-" Plug 'edkolev/tmuxline.vim'
 Plug 'jpalardy/vim-slime', {'branch': 'main'}
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-sensible'
-Plug 'unblevable/quick-scope'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tomtom/tcomment_vim'
 Plug 'mattn/emmet-vim'
-" Plug 'blindFS/vim-taskwarrior'
-Plug 'vimwiki/vimwiki/'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'mhinz/vim-signify'
-" Plug 'bling/vim-bufferline'
-Plug 'Yggdroot/indentLine'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'chrisbra/vim-diff-enhanced'
 Plug 'lambdalisue/vim-unified-diff'
 Plug 'christoomey/vim-conflicted'
-Plug 'janko/vim-test'
-Plug 'benmills/vimux'
-Plug 'machakann/vim-highlightedyank'
 Plug 'kshenoy/vim-signature'
-Plug 'jeetsukumaran/vim-pythonsense', {'for': 'python'}
 Plug 'salsifis/vim-transpose'
-if Old_vim_version()
-    if has('+lua')
-        Plug 'Shougo/neocomplete.vim'
-    endif
-	Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
-else
-    Plug 'Olical/conjure', {'tag': 'v4.25.0'}
-	Plug 'prabirshrestha/async.vim'
-	" Plug 'dense-analysis/ale'
-	Plug 'prabirshrestha/vim-lsp'
-	Plug 'mattn/vim-lsp-settings'
-	Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
-    Plug 'benekastah/neomake',
-    Plug 'rhysd/git-messenger.vim'
-	Plug 'liuchengxu/vista.vim'
-    " Plug 'puremourning/vimspector'
-endif
+Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 
 call plug#end()
 "}}}
@@ -174,16 +142,7 @@ hi MatchParen      ctermfg=208  ctermbg=233 cterm=bold
 
 source ~/.vim/plugconfig/airline.vim
 source ~/.vim/plugconfig/fzf.vim
-source ~/.vim/plugconfig/neomake.vim
-source ~/.vim/plugconfig/neocomplete.vim
-source ~/.vim/plugconfig/tmuxline.vim
-source ~/.vim/plugconfig/gutentags.vim
-source ~/.vim/plugconfig/vim-lsp.vim
-source ~/.vim/plugconfig/vimwiki.vim
 source ~/.vim/plugconfig/autopairs.vim
-source ~/.vim/plugconfig/conjure.vim
-source ~/.vim/plugconfig/vim-go.vim
-source ~/.vim/plugconfig/indentline.vim
 source ~/.vim/plugconfig/better-whitespace.vim
 
 let g:task_rc_override = 'rc.defaultwidth=0'
@@ -191,24 +150,6 @@ let g:task_rc_override = 'rc.defaultwidth=0'
 "slimv configuration
 let g:slime_target = "tmux"
 let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
-
-let test#strategy = "vimux"
-
-let g:git_messenger_always_into_popup = 1
-
-let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-
-let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
-
-let g:vista_executive_for = {
-  \ 'python': 'vim_lsp',
-  \ }
-
-let g:highlightedyank_highlight_duration = 350
-if !exists('##TextYankPost')
-  map y <Plug>(highlightedyank)
-endif
-
 
 "}}}
 
@@ -219,18 +160,6 @@ nnoremap ; :
 vnoremap ; :
 
 inoremap jk <ESC>
-if has('nvim')
-    tnoremap <ESC><ESC> <C-\><C-n>
-    tnoremap <A-h> <C-\><C-N><C-w>h
-    tnoremap <A-j> <C-\><C-N><C-w>j
-    tnoremap <A-k> <C-\><C-N><C-w>k
-    tnoremap <A-l> <C-\><C-N><C-w>l
-    inoremap <A-h> <C-\><C-N><C-w>h
-    nnoremap <A-h> <C-w>h
-    nnoremap <A-l> <C-w>l
-    nnoremap <A-j> <C-w>j
-    nnoremap <A-k> <C-w>k
-endif
 
 "Saving keybinds
 :nnoremap <C-s> :w<CR>
@@ -294,22 +223,13 @@ nnoremap <leader>ev :tabe $MYVIMRC<cr>
 nnoremap <F1> :e.<cr>
 nnoremap <F2> :UndotreeToggle<cr>
 nnoremap <F3> :NERDTreeToggle<cr>
-nnoremap <F5> :Neomake!<CR>
-if !Old_vim_version()
-	nnoremap <F8> :Vista!!<cr>
-else
-	nnoremap <F8> :TagbarToggle<cr>
-endif
+nnoremap <F8> :TagbarToggle<cr>
 
 "syntax checking
 " nnoremap <leader>sc :SyntasticCheck<CR>
 let g:lt_location_list_toggle_map = '<leader>l'
 let g:lt_quickfix_list_toggle_map = '<leader>q'
 
-"Git add and commit
-" nnoremap <leader>gc :Git commit -a
-" Open git fugitive status in new tab
-nnoremap <leader>gs :tabe<CR>:Gstatus<CR>
 
 " Close current tab
 nnoremap <leader>tq :tabc<CR>
@@ -328,9 +248,6 @@ vnoremap // y/<C-R>"<CR>
 
 "put space around operator
 nnoremap <leader><space> i <esc>la <esc>h
-
-"Git/fugitive hotkeys
-nnoremap <leader>gc :Git commit -a<CR>
 
 nmap <leader>) ysa))a
 nmap <leader>be ysa))abegin<CR>
@@ -355,11 +272,6 @@ nnoremap <leader>pb Oimport pdb; pdb.set_trace()<Esc>^
 nnoremap <leader>pdb Oimport pudb; pu.db<Esc>^
 
 nnoremap <leader>ct :!ctags -R src<CR>
-
-"Run Unit tests
-nnoremap <leader>tf :TestFile<CR>
-nnoremap <leader>tn :TestNearest<CR>
-nnoremap <leader>tl :TestLast<CR>
 
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '>-2<CR>gv=gv
