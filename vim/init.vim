@@ -3,19 +3,15 @@ source ~/.vimrc
 " no call to plug#begin as that will reset pluggins added in ~/.vimrc
 Plug 'junegunn/vim-peekaboo'
 Plug 'Olical/conjure', {'tag': 'v4.25.0', 'for': ['fennel', 'racket', 'clojure']}
-Plug 'tpope/vim-fugitive'
-Plug 'unblevable/quick-scope'
-Plug 'prabirshrestha/async.vim'
+" Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+Plug 'lighttiger2505/deoplete-vim-lsp'
 Plug 'benekastah/neomake',
 Plug 'rhysd/git-messenger.vim'
-" Plug 'liuchengxu/vista.vim'
 " Plug 'ludovicchabant/vim-gutentags'
 Plug 'vimwiki/vimwiki/'
-Plug 'jeetsukumaran/vim-pythonsense', {'for': 'python'}
-Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'janko/vim-test'
 Plug 'benmills/vimux'
 Plug 'machakann/vim-highlightedyank'
@@ -37,15 +33,11 @@ let test#strategy = "vimux"
 
 let g:git_messenger_always_into_popup = 1
 let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
-let g:vista_executive_for = {
-  \ 'python': 'vim_lsp',
-  \ }
 let g:highlightedyank_highlight_duration = 350
 if !exists('##TextYankPost')
   map y <Plug>(highlightedyank)
 endif
 
-let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 tnoremap <ESC><ESC> <C-\><C-n>
 tnoremap <A-h> <C-\><C-N><C-w>h

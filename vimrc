@@ -8,12 +8,40 @@ source ~/.vim/util.vim " For Old_vim_version function
 
 call plug#begin()
 Plug 'dstein64/vim-startuptime'
+" Eyecandy....
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'flazz/vim-colorschemes'
+Plug 'powerman/vim-plugin-AnsiEsc'
+" Navigation tools
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': { -> fzf#install() }}
 Plug 'junegunn/fzf.vim'
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+Plug 'unblevable/quick-scope'
+Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
+Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
+Plug 'jpalardy/vim-slime', {'branch': 'main'}
+Plug 'Valloric/ListToggle'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-rsi'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-fugitive'
+Plug 'jiangmiao/auto-pairs'
+Plug 'tomtom/tcomment_vim'
+Plug 'mattn/emmet-vim'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'mhinz/vim-signify' " Git/SVN
+Plug 'kshenoy/vim-signature' " Marks
 Plug 'junegunn/vim-easy-align'
+Plug 'salsifis/vim-transpose'
+" For better diffs. Sometimes...
+Plug 'chrisbra/vim-diff-enhanced'
+Plug 'lambdalisue/vim-unified-diff'
+Plug 'christoomey/vim-conflicted'
+
+" Language support
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'wlangstroth/vim-racket'
 Plug 'bakpakin/fennel.vim'
@@ -21,27 +49,8 @@ Plug 'JuliaEditorSupport/julia-vim'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'habamax/vim-godot'
-Plug 'Valloric/ListToggle'
-Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
-Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
-Plug 'jpalardy/vim-slime', {'branch': 'main'}
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-rsi'
-Plug 'tpope/vim-sensible'
-Plug 'jiangmiao/auto-pairs'
-Plug 'tomtom/tcomment_vim'
-Plug 'mattn/emmet-vim'
-Plug 'ntpeters/vim-better-whitespace'
-Plug 'mhinz/vim-signify'
-Plug 'powerman/vim-plugin-AnsiEsc'
-Plug 'chrisbra/vim-diff-enhanced'
-Plug 'lambdalisue/vim-unified-diff'
-Plug 'christoomey/vim-conflicted'
-Plug 'kshenoy/vim-signature'
-Plug 'salsifis/vim-transpose'
-Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
+Plug 'jeetsukumaran/vim-pythonsense', {'for': 'python'}
+Plug 'fatih/vim-go', {'for': 'go'}
 
 call plug#end()
 "}}}
@@ -146,6 +155,9 @@ source ~/.vim/plugconfig/autopairs.vim
 source ~/.vim/plugconfig/better-whitespace.vim
 
 let g:task_rc_override = 'rc.defaultwidth=0'
+
+"Quick scope
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 "slimv configuration
 let g:slime_target = "tmux"
