@@ -8,12 +8,12 @@ source ~/.vim/util.vim " For Old_vim_version function
 
 call plug#begin()
 Plug 'dstein64/vim-startuptime'
-" Eyecandy....
+" " Eyecandy....
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'flazz/vim-colorschemes'
 Plug 'powerman/vim-plugin-AnsiEsc'
-" Navigation tools
+" " Navigation tools
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': { -> fzf#install() }}
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
@@ -30,12 +30,12 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tomtom/tcomment_vim'
-Plug 'mattn/emmet-vim'
+" Plug 'mattn/emmet-vim'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'mhinz/vim-signify' " Git/SVN
 Plug 'kshenoy/vim-signature' " Marks
 Plug 'junegunn/vim-easy-align'
-Plug 'salsifis/vim-transpose'
+" Plug 'salsifis/vim-transpose'
 " For better diffs. Sometimes...
 Plug 'chrisbra/vim-diff-enhanced'
 Plug 'lambdalisue/vim-unified-diff'
@@ -43,13 +43,16 @@ Plug 'christoomey/vim-conflicted'
 
 " Language support
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
-Plug 'wlangstroth/vim-racket'
+" Plug 'wlangstroth/vim-racket'
 Plug 'bakpakin/fennel.vim'
-Plug 'JuliaEditorSupport/julia-vim'
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
-Plug 'habamax/vim-godot'
+" Plug 'JuliaEditorSupport/julia-vim'
+" Plug 'pangloss/vim-javascript'
+" Plug 'mxw/vim-jsx'
+" Plug 'habamax/vim-godot'
 Plug 'jeetsukumaran/vim-pythonsense', {'for': 'python'}
+Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}
+Plug 'LnL7/vim-nix'
+Plug 'janet-lang/janet.vim'
 Plug 'fatih/vim-go', {'for': 'go'}
 
 call plug#end()

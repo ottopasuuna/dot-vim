@@ -2,7 +2,10 @@ source ~/.vimrc
 
 " no call to plug#begin as that will reset pluggins added in ~/.vimrc
 Plug 'junegunn/vim-peekaboo'
-Plug 'Olical/conjure', {'tag': 'v4.25.0', 'for': ['fennel', 'racket', 'clojure']}
+" Plug 'Olical/conjure', {'tag': 'v4.32.0'}
+Plug 'guns/vim-sexp'
+Plug 'tpope/vim-sexp-mappings-for-regular-people'
+" Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}
 " Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
@@ -12,12 +15,15 @@ Plug 'benekastah/neomake',
 Plug 'rhysd/git-messenger.vim'
 " Plug 'ludovicchabant/vim-gutentags'
 Plug 'vimwiki/vimwiki/'
-Plug 'janko/vim-test'
-Plug 'benmills/vimux'
+" Plug 'janko/vim-test'
+" Plug 'benmills/vimux'
 Plug 'machakann/vim-highlightedyank'
 Plug 'Yggdroot/indentLine'
 " Plug 'puremourning/vimspector'
 call plug#end()
+
+let g:sexp_enable_insert_mode_mappings = 0
+let g:sexp_filetypes = 'clojure,scheme,lisp,timl,janet,fennel,racket'
 
 source ~/.vim/plugconfig/neocomplete.vim
 source ~/.vim/plugconfig/neomake.vim

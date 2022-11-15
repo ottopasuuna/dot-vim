@@ -1,4 +1,5 @@
 " Use markdown syntax for vimwiki
 " let g:vimwiki_list = [{'path': '~/vimwiki/',
 "                       \ 'syntax': 'markdown', 'ext': '.md'}]
-let g:vimwiki_list = [{'path': '~/vimwiki/' }]
+let g:vimwiki_list = [{'path': '~/Sync/vimwiki/',
+            \ 'syntax': 'markdown', 'ext': '.md'}]
