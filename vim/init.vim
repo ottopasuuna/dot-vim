@@ -31,7 +31,6 @@ Plug 'bydlw98/cmp-env'
 Plug 'quangnguyen30192/cmp-nvim-tags'
 
 Plug 'L3MON4D3/LuaSnip'
-Plug 'machakann/vim-highlightedyank'
 Plug 'Yggdroot/indentLine'
 call plug#end()
 
@@ -52,7 +51,4 @@ source ~/.vim/plugconfig/tmuxline.vim
 
 luafile ~/.vim/lua/user/init.lua
 
-if !exists('##TextYankPost')
-  map y <Plug>(highlightedyank)
-endif
-
+au TextYankPost * silent! lua vim.highlight.on_yank({on_visual=true,timeout=150})
