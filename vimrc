@@ -95,7 +95,7 @@ set mouse=a
 set clipboard=unnamedplus
 
 "Set leader key to ','
-let mapleader=','
+let mapleader=' '
 let maplocalleader = "\\"
 
 "Turn on line numbers
@@ -201,7 +201,7 @@ nnoremap <leader>fm :set foldmethod=marker<CR>
 
 "close buffer
 " :nnoremap <leader>q :bd<CR>
-nmap <space> <leader>
+" nmap <space> <leader>
 
 "move beween windows
 :nnoremap <C-k> <C-w>k
