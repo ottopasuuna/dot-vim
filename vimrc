@@ -43,12 +43,12 @@ Plug 'christoomey/vim-conflicted'
 
 " Language support
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
-" Plug 'wlangstroth/vim-racket'
+Plug 'wlangstroth/vim-racket'
 Plug 'bakpakin/fennel.vim'
-" Plug 'JuliaEditorSupport/julia-vim'
-" Plug 'pangloss/vim-javascript'
-" Plug 'mxw/vim-jsx'
-" Plug 'habamax/vim-godot'
+Plug 'JuliaEditorSupport/julia-vim'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'habamax/vim-godot'
 Plug 'jeetsukumaran/vim-pythonsense', {'for': 'python'}
 Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}
 Plug 'LnL7/vim-nix'
@@ -134,7 +134,7 @@ set smartcase
 
 
 " Use python from a conda environment
-let g:python3_host_prog = $HOME . '/.local/share/miniconda3/envs/neovim/bin/python'
+" let g:python3_host_prog = $HOME . '/.local/share/miniconda3/envs/neovim/bin/python'
 let $PATH .= ':' . $HOME . '/.local/share/miniconda3/envs/neovim/bin'
 
 if !Old_vim_version()
