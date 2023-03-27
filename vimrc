@@ -80,7 +80,7 @@ set nobackup
 autocmd! bufwritepost ~/.vimrc source %
 
 "Automatically run syntax checks on saving
-autocmd! BufWritePost * Neomake
+" autocmd! BufWritePost * Neomake
 
 au FileType txt,wiki set tw=80 spell
 

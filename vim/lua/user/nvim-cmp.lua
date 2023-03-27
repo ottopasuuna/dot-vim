@@ -34,6 +34,7 @@ cmp.setup({
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
       -- { name = 'tags'},
+      -- { name = 'omni' },
       { name = 'luasnip' },
       { name = 'path' },
       -- { name = 'conjure' },

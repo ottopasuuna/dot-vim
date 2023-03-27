@@ -24,9 +24,10 @@ local function leader (key, binding)
 end
 
 -- Edit vim config
-leader("ev", ":tabe $MYVIMRC<cr>")
+leader("ev", ":edit $MYVIMRC<cr>")
 leader("ek", ":edit ~/.vim/lua/user/keymaps.lua<cr>") -- TODO: better way to refer to this file?
 leader("elsp", ":edit ~/.vim/lua/user/nvim-lspconfig.lua<cr>")
+leader("sv", "source $MYVIMRC<cr>")
 
 leader("gs", ":tabe<CR>:Git<cr>")
 leader("gm", ":GitMessenger<cr>")

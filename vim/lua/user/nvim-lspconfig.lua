@@ -36,6 +36,12 @@ local function on_attach(client, buffer)
     lsp_keybindings(client, buffer)
 end
 
+lspconfig.clangd.setup {
+    on_attach = on_attach,
+    flags = lsp_flags,
+    capabilities = capabilities,
+}
+
 lspconfig.gopls.setup{
     on_attach = on_attach,
     flags = lsp_flags,
