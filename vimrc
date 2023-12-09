@@ -44,7 +44,8 @@ Plug 'christoomey/vim-conflicted'
 " Language support
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'wlangstroth/vim-racket'
-Plug 'bakpakin/fennel.vim'
+" Plug 'bakpakin/fennel.vim'
+Plug 'jaawerth/fennel.vim'
 Plug 'JuliaEditorSupport/julia-vim'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'

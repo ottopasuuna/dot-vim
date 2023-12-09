@@ -42,6 +42,23 @@ lspconfig.clangd.setup {
     capabilities = capabilities,
 }
 
+-- lspconfig.fennel_language_server.setup {
+--     on_attach = on_attach,
+--     flags = lsp_flags,
+--     capabilities = capabilities,
+--     filetypes = {'fennel'},
+--     single_file_source = true,
+-- }
+
+lspconfig.fennel_ls.setup {
+    on_attach = on_attach,
+    flags = lsp_flags,
+    capabilities = capabilities,
+    filetypes = {'fennel'},
+    single_file_source = true,
+}
+
+
 lspconfig.gopls.setup{
     on_attach = on_attach,
     flags = lsp_flags,
@@ -62,7 +79,7 @@ lspconfig.pylsp.setup{
     }
 }
 
-lspconfig.sumneko_lua.setup{
+lspconfig.lua_ls.setup{
     on_attach = on_attach,
     flags = lsp_flags,
     capabilities = capabilities,
