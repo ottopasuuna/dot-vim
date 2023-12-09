@@ -24,10 +24,11 @@ local function leader (key, binding)
 end
 
 -- Edit vim config
-leader("ev", ":edit $MYVIMRC<cr>")
-leader("ek", ":edit ~/.vim/lua/user/keymaps.lua<cr>") -- TODO: better way to refer to this file?
-leader("elsp", ":edit ~/.vim/lua/user/nvim-lspconfig.lua<cr>")
-leader("sv", "source $MYVIMRC<cr>")
+-- leader("ev", ":edit $MYVIMRC<cr>")
+-- leader("ek", ":edit ~/.vim/lua/user/keymaps.lua<cr>") -- TODO: better way to refer to this file?
+-- leader("elsp", ":edit ~/.vim/lua/user/nvim-lspconfig.lua<cr>")
+leader("sv", ":source $MYVIMRC<cr>")
+leader("sx", ":w<cr>:source %<cr>")
 
 leader("gs", ":tabe<CR>:Git<cr>")
 leader("gm", ":GitMessenger<cr>")
@@ -47,11 +48,11 @@ leader("sp", ":set spell!<cr>")
 -- -------------
 nmap("<F1>", ":e.<cr>")
 nmap("<F2>", ":UndotreeToggle<cr>")
-nmap("<F3>", "NERDTreeToggle<cr>")
+nmap("<F3>", ":NERDTreeToggle<cr>")
 
 nmap("<F5>", ":Neomake!<cr>")
 
-nmap("<F8>", "TagbarToggle<cr>")
+nmap("<F8>", ":TagbarToggle<cr>")
 
 
 -- -----------------
@@ -64,6 +65,26 @@ tmap("<A-j>", "<C-\\><C-N><C-w>j")
 tmap("<A-k>", "<C-\\><C-N><C-w>k")
 tmap("<A-l>", "<C-\\><C-N><C-w>l")
 
+-- Slime bindings
+leader("cc", "<Plug>SlimeParagraphSend")
+
+-- -- Telescope bindings
+local has_tele, builtin = pcall(require, "telescope.builtin")
+if has_tele then
+    function find_vim_config()
+        builtin.git_files{
+            cwd="~/.config/nvim",
+            prompt="~ nvim config ~",
+        }
+    end
+    leader('ff', builtin.git_files)
+    leader('fF', builtin.find_files)
+    leader('fb', builtin.buffers)
+    leader('ft', builtin.tags)
+    leader('fg', builtin.current_buffer_tags)
+    leader('fr', builtin.live_grep)
+    leader('fv', find_vim_config)
+end
 
 -- -----------
 -- LSP handler
@@ -142,4 +163,5 @@ end
 local M = {}
 M.lsp_handler = lsp_handler
 M.cmp_bindings = cmp_bindings
+M.leader = leader
 return M
