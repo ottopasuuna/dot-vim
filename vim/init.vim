@@ -38,12 +38,7 @@ call plug#end()
 
 " source ~/.vim/plugconfig/neomake.vim
 source ~/.vim/plugconfig/vim-go.vim
-source ~/.vim/plugconfig/indentline.vim
+" source ~/.vim/plugconfig/indentline.vim
 source ~/.vim/plugconfig/gutentags.vim
 
 luafile ~/.vim/lua/user/init.lua
-set mouse=a
-set clipboard=unnamedplus
-let g:taskwiki_markup_syntax = 'markdown'
-let g:taskwiki_taskrc_location = '.config/task/taskrc'
-let g:slime_no_mappings = 1

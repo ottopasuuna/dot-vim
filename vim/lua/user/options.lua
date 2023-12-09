@@ -27,7 +27,7 @@ local options = {
 
 for k, v in pairs(options) do
     -- vim.notify(k)
-    vim.opt[k] = value
+    vim.opt[k] = v
 end
 
 
@@ -40,6 +40,13 @@ vim.g.git_messenger_always_into_popup = true
 
 vim.g.sexp_filetypes = "clojure,scheme,lisp,timl,janet,fennel,racket"
 vim.g.sexp_enable_insert_mode_mappings = false
+
+vim.g.slime_no_mappings = 1
+
+vim.g.taskwiki_markup_syntax = 'markdown'
+vim.g.taskwiki_taskrc_location = ".config/task/taskrc"
+
+vim.g.indentLine_concealcursor = ""
 
 -- ------------
 -- Autocommands
