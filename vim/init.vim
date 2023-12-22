@@ -2,7 +2,7 @@ source ~/.vimrc
 
 " no call to plug#begin as that will reset pluggins added in ~/.vimrc
 Plug 'junegunn/vim-peekaboo'
-Plug 'Olical/conjure', {'tag': 'v4.43.0'}
+Plug 'Olical/conjure', {'tag': 'v4.49.0'}
 Plug 'guns/vim-sexp'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 " Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}

@@ -42,12 +42,15 @@ vim.g.sexp_filetypes = "clojure,scheme,lisp,timl,janet,fennel,racket"
 vim.g.sexp_enable_insert_mode_mappings = false
 
 vim.g.slime_no_mappings = 1
+vim.g.slime_target = "tmux"
+vim.g.slime_default_config = {socket_name = "default", target_pane = "1"}
 
 vim.g.taskwiki_markup_syntax = 'markdown'
 vim.g.taskwiki_taskrc_location = ".config/task/taskrc"
 
 vim.g.indentLine_concealcursor = ""
 
+vim.g.qs_highlight_on_keys = {"f", "F", "t", "T"}
 -- ------------
 -- Autocommands
 -- ------------
