@@ -97,7 +97,7 @@ set clipboard=unnamedplus
 
 "Set leader key to ','
 let mapleader=' '
-let maplocalleader = "\\"
+let maplocalleader = ","
 
 "Turn on line numbers
 set number
