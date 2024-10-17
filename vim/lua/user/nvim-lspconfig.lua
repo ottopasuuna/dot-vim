@@ -58,6 +58,13 @@ lspconfig.fennel_ls.setup {
     single_file_source = true,
 }
 
+lspconfig.gdscript.setup {
+    on_attach = on_attach,
+    flags = lsp_flags,
+    capabilities = capabilities,
+    filetypes = {'gdscript'},
+}
+
 
 lspconfig.gopls.setup{
     on_attach = on_attach,
