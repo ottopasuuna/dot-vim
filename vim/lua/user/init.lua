@@ -8,7 +8,7 @@ require "user.telescope"
 -- require "user.obsidian"
 
 
-local projectfile = vim.fn.getcwd() .. 'project.godot'
-if projectfile then
+local projectfile = vim.fn.getcwd() .. '/project.godot'
+if (vim.uv or vim.loop).fs_stat(vim.fn.expand(projectfile)) then
     vim.fn.serverstart './godothost'
 end
