@@ -5,6 +5,7 @@ require "user.nvim-lspconfig"
 require "user.conjure"
 require "user.vimwiki"
 require "user.telescope"
+require "user.treesitter"
 -- require "user.obsidian"
 
 
